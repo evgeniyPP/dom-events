@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>preventDefault & stopPropagation</title>
+    <style>
+      a, 
+      button {
+        display: block;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <a href="https://www.google.com/">Ссылка на Google</a>
+        <button id="btn1">Кнопка со stopPropagation</button>
+        <button id="btn2">Кнопка со stopImmediatePropagation</button>
+      </section>
+    </main>
+    <script>
+      const $body = document.querySelector('body');
+      const $main = document.querySelector('main');
+      const $section = document.querySelector('section');
+      const $link = document.querySelector('a');
+      const $btn1 = document.getElementById('btn1');
+      const $btn2 = document.getElementById('btn2');
+
+      /*
+        e.preventDefault отменяет стандартное поведение. 
+        Например, переход по ссылке или отправку формы при событии submit.
+      */
+
+      $link.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Ссылка нажата');
+      });
+
+      /*
+        e.stopPropagation останавливает всплытие.
+        То есть при нажатии на кнопку события родителей срабатывать не будут
+
+        Порядок срабатывания события нажатия на кнопку:
+            1 фаза – Погружение:
+                body
+                main
+                section
+                button
+            2 фаза – Всплытие:
+                button – сработал 'button', отменил всплытие.
+      */
+      $btn1.addEventListener('click', function(e) {
+        e.stopPropagation();
+        console.log('button 1');
+      });
+
+      $body.addEventListener('click', function(e) {
+        console.log('body');
+      });
+
+      /* 
+        e.stopImmediatePropagation отменяет не только всплытие к родителям, 
+        но и другие обработчики навешанные на элемент.
+      */
+      $btn2.addEventListener('click', function(e) {
+        e.stopImmediatePropagation();
+        console.log('button 2');
+      });
+
+      $btn2.addEventListener('click', function(e) {
+        console.log('Я не сработаю никогда');
+      });
+    </script>
+  </body>
+</html>

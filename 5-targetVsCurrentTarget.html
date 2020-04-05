@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>target vs currentTarget</title>
+    <style>
+      button {
+        display: block;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <button>Кнопка</button>
+      </section>
+    </main>
+    <script>
+      const $body = document.querySelector('body');
+      const $main = document.querySelector('main');
+      const $section = document.querySelector('section');
+      const $button = document.querySelector('button');
+
+      /*
+        Объект события передается первым параметром в callback-функцию.
+        Традиционно называется 'event' или просто 'e'.
+
+        e.target равен DOM-элементу, на который нажал пользователь,
+        e.currentTarget равен DOM-элементу, на который был навешен addEventListener.
+
+        На e.currentTarget также ссылается this в callback-функции.
+      */
+
+      $body.addEventListener('click', function(e) {
+        console.log('target: ', e.target);
+        console.log('currentTarget: ', e.currentTarget);
+        console.log('this: ', this);
+        console.log('this равно currentTarget: ', this === e.currentTarget);
+      });
+    </script>
+  </body>
+</html>

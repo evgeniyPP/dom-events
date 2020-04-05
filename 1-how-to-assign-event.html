@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Как назначить обработчик. Три способа</title>
+    <style>
+      button {
+        display: block;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <!-- Способ первый – как HTML-атрибут -->
+        <!-- Плохо, потому что нарушает разделение кода на данные (HTML), стили (CSS) и логику (JavaScript) -->
+        <button onclick="console.log('Способ первый')">Способ первый</button>
+        <button id="btn2">Способ второй</button>
+        <button id="btn3">Способ третий</button>
+      </section>
+    </main>
+    <script>
+      /* 
+        Способ второй – свойство DOM-объекта
+        Плохо, потому что нельзя назначить больше одного обработчика на элемент
+        Второй перезапишет первый
+      */
+      document.getElementById('btn2').onclick = function() {
+        console.log('Способ второй');
+      };
+
+      /* 
+        Способ третий – addEventListener
+        Стильно, модно, молодежно
+      */
+      document.getElementById('btn3').addEventListener('click', function() {
+        console.log('Способ третий');
+      });
+    </script>
+  </body>
+</html>

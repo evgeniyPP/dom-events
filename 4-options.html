@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Options</title>
+    <style>
+      button {
+        display: block;
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <button>Кнопка</button>
+        <p>Если нажать несколько раз, button будет срабатывать каждый раз, а body – только в первый</p>
+      </section>
+    </main>
+    <script>
+      const $body = document.querySelector('body');
+      const $main = document.querySelector('main');
+      const $section = document.querySelector('section');
+      const $button = document.querySelector('button');
+
+      /*
+        Третий параметр также может быть объектом опций (options)
+      */
+
+      $body.addEventListener(
+        'click',
+        function() {
+          console.log('body');
+        },
+        {
+          capture: true, // Аналогично useCaption
+          once: true, // Запускать событие единожды
+          passive: true // Запрещает использовать preventDefault (о нем позже)
+        }
+      );
+
+      $button.addEventListener('click', function() {
+        console.log('button');
+      });
+    </script>
+  </body>
+</html>

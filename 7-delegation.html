@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>preventDefault & stopPropagation</title>
+    <style>
+      button {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>10</button>
+      </section>
+    </main>
+    <script>
+      const $section = document.querySelector('section');
+
+      /*
+        Если у нас много элементов, выгоднее по производительности не навешивать событие на каждый элемент,
+        а повесить событие на родителя и внутри функции получать конкретный элемент как e.target
+      */
+
+      $section.addEventListener('click', function(e) {
+        if (e.target.tagName === 'BUTTON') {
+          console.log('Кнопка №', e.target.innerText);
+        }
+      });
+    </script>
+  </body>
+</html>
